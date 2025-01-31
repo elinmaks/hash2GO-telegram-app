@@ -1,0 +1,219 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="MobileOptimized" content="176">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Mining App</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Balance Section -->
+    <div class="blockchain-history balance-blocks">
+      <div class="balance-section">
+        <div class="balance-item">
+          <span>Balance</span>
+          <span id="currentBalance">0.00</span>
+        </div>
+        <div class="balance-item">
+          <span>Total Mined</span>
+          <span id="totalMined">0.00</span>
+        </div>
+        <div class="balance-item">
+          <span>Last Reward</span>
+          <span id="lastReward">0.00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mining Stats -->
+    <div class="mining-stats">
+      <div class="stats-row">
+        <div class="stat">
+          <span class="label">Hash Rate</span>
+          <span class="value" id="hashRate">0 H/s</span>
+        </div>
+        <div class="stat">
+          <span class="label">Valid Hashes</span>
+          <span class="value" id="validHashes">0</span>
+        </div>
+        <div class="stat">
+          <span class="label">Network Progress</span>
+          <span class="value" id="networkProgress">0/1000</span>
+        </div>
+      </div>
+      <div class="stats-row">
+        <div class="stat">
+          <span class="label">Difficulty</span>
+          <span class="value" id="currentDifficulty">3.00</span>
+        </div>
+        <div class="stat">
+          <span class="label">Active Miners</span>
+          <span class="value" id="activeMiners">0</span>
+        </div>
+        <div class="stat">
+          <span class="label">Current Block</span>
+          <span class="value" id="currentBlock">1</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Energy Section -->
+    <div class="energy-container">
+      <div class="energy-status">
+        <span>Energy: <span id="energyLevel">5000</span> <span class="charging-status"></span></span>
+      </div>
+      <div class="energy-bar-container">
+        <div class="energy-bar" style="width: 100%"></div>
+      </div>
+    </div>
+
+    <!-- Mining Terminal -->
+    <div class="terminal">
+      <div class="mining-status"></div>
+      <button id="startMining" class="mining-button">Start Mining</button>
+    </div>
+
+    <!-- Blockchain History -->
+    <div class="blockchain-history">
+      <div class="blocks-container"></div>
+    </div>
+
+    <!-- Top Miners Section -->
+    <section class="top-miners-section" style="display: none;">
+      <div class="compact-stats">
+        <div class="compact-row">
+          <span>Your Balance</span>
+          <span id="topMinersBalance">0.00 MNG</span>
+        </div>
+      </div>
+      <div id="topMinersList"></div>
+    </section>
+
+    <!-- Blockchain Section -->
+    <section class="blockchain-section" style="display: none;">
+      <div class="compact-stats">
+        <div class="compact-row">
+          <span>Current Block</span>
+          <span id="chainCurrentBlock">1</span>
+        </div>
+        <div class="compact-row">
+          <span>Difficulty</span>
+          <span id="chainDifficulty">3.00</span>
+        </div>
+        <div class="compact-row">
+          <span>Network Hash Rate</span>
+          <span id="chainHashRate">0 H/s</span>
+        </div>
+        <div class="compact-row">
+          <span>Avg Block Time</span>
+          <span id="avgBlockTime">Calculating...</span>
+        </div>
+      </div>
+      <div class="blocks-container"></div>
+    </section>
+
+    <!-- Wallet Section -->
+    <section class="wallet-section" style="display: none;">
+      <div class="compact-stats">
+        <div class="compact-row">
+          <span>Current Balance</span>
+          <span id="walletBalance">0.00 MNG</span>
+        </div>
+        <div class="compact-row">
+          <span>Total Mined</span>
+          <span id="walletTotalMined">0.00 MNG</span>
+        </div>
+        <div class="compact-row">
+          <span>Last Reward</span>
+          <span id="walletLastReward">0.00 MNG</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Missions Section -->
+    <section class="missions-section" style="display: none;">
+      <div class="mission-card">
+        <div class="mission-header">
+          <span class="mission-title">Daily Activity Bonus</span>
+          <span class="mission-reward">+50 kW Energy</span>
+        </div>
+        <div class="mission-description">
+          Confirm your daily activity to receive an energy boost!
+        </div>
+        <button id="confirmActivityBtn" class="mission-button">Confirm Activity</button>
+        <div id="missionTimer" class="mission-timer">Available now</div>
+      </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+      <div class="nav-item active" data-section="mining">
+        <span>Mining</span>
+      </div>
+      <div class="nav-item" data-section="miners">
+        <span>Top Miners</span>
+      </div>
+      <div class="nav-item" data-section="blockchain">
+        <span>Blockchain</span>
+      </div>
+      <div class="nav-item" data-section="wallet">
+        <span>Wallet</span>
+      </div>
+      <div class="nav-item" data-section="missions">
+        <span>Missions</span>
+      </div>
+      <div class="nav-item" data-section="upgrades">
+        <span>Upgrades</span>
+      </div>
+    </nav>
+
+    <!-- Upgrades Section -->
+    <section class="upgrades-section" style="display: none;">
+      <div class="compact-stats">
+        <div class="compact-row">
+          <span>Available Balance</span>
+          <span id="upgradeBalance">0.00 MNG</span>
+        </div>
+        <div class="compact-row">
+          <span>Current Hash Rate</span>
+          <span id="upgradeHashRate">0 H/s</span>
+        </div>
+      </div>
+      <div class="upgrade-card">
+        <div class="upgrade-header">
+          <span class="upgrade-title">Hash Rate Booster</span>
+          <span class="upgrade-level">Level <span id="upgradeLevel">0</span>/50</span>
+        </div>
+        <div class="upgrade-stats">
+          <span>Speed Bonus</span>
+          <span id="upgradeBonus">+0%</span>
+        </div>
+        <div class="upgrade-stats">
+          <span>Upgrade Cost</span>
+          <span id="upgradeCost">100 MNG</span>
+        </div>
+        <button id="purchaseUpgrade" class="upgrade-button">Purchase Upgrade</button>
+      </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal-overlay">
+      <div class="modal">
+        <div class="modal-header">
+          <h3>Block Details</h3>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-content"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

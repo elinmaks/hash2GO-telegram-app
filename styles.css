@@ -1,0 +1,970 @@
+:root {
+  --terminal-bg: #000000;
+  --terminal-text: #00ff00;
+  --terminal-dim: #006600;
+  --terminal-border: #1a1a1a;
+  --accent-color: #ffbd2e;
+  --error-color: #ff5f56;
+  --tg-theme-bg-color: var(--terminal-bg);
+  --tg-theme-text-color: var(--terminal-text);
+  --tg-theme-hint-color: var(--terminal-dim);
+  --tg-theme-link-color: var(--accent-color);
+  --tg-theme-button-color: var(--accent-color);
+  --tg-theme-button-text-color: var(--terminal-bg);
+}
+
+.light-theme {
+  --terminal-bg: var(--tg-theme-bg-color, #ffffff);
+  --terminal-text: var(--tg-theme-text-color, #000000);
+  --terminal-dim: var(--tg-theme-hint-color, #999999);
+  --accent-color: var(--tg-theme-button-color, #40a7e3);
+  --error-color: #ff5f56;
+}
+
+.dark-theme {
+  --terminal-bg: var(--tg-theme-bg-color, #000000);
+  --terminal-text: var(--tg-theme-text-color, #ffffff);
+  --terminal-dim: var(--tg-theme-hint-color, #aaaaaa);
+  --accent-color: var(--tg-theme-button-color, #40a7e3);
+  --error-color: #ff5f56;
+}
+
+body {
+  background: #000000;
+  color: var(--terminal-text);
+  font-family: "SF Mono", "Menlo", monospace;
+  margin: 0;
+  padding: 0;
+  line-height: 1.4;
+  font-size: 14px;
+}
+
+.app-container {
+  padding: 8px;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 60px);
+  max-width: 100%;
+  padding-top: env(safe-area-inset-top);
+}
+
+.balance-section {
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid var(--terminal-border);
+  border-radius: 4px;
+  margin-bottom: 8px;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.balance-section.mini {
+  padding: 4px;
+  margin-bottom: 4px;
+  background: rgba(255, 189, 46, 0.03);
+  border: 1px solid var(--accent-color);
+}
+
+.balance-section .balance-item {
+  flex: 1;
+  font-size: 14px;
+  color: var(--accent-color);
+  text-align: center;
+}
+
+.balance-section .balance-item span {
+  display: block;
+  margin-top: 2px;
+}
+
+.balance-section.mini .balance-item {
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 2px 4px;
+  background: rgba(0,0,0,0.7);
+  border-radius: 4px;
+  flex: 1;
+  text-align: center;
+}
+
+.balance-section.mini .balance-item span {
+  margin: 0;
+  display: inline;
+}
+
+.balance-section.mini .balance-item span:last-child {
+  color: var(--accent-color);
+  font-weight: bold;
+  display: block;
+}
+
+.blockchain-history.balance-blocks {
+  margin-bottom: 12px;
+  display: block !important; 
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #000000;
+  transition: all 0.3s ease;
+}
+
+.balance-blocks {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(0,0,0,0.98);
+  border-bottom: 1px solid var(--accent-color);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.balance-blocks.compact {
+  transform: scale(0.9);
+  transform-origin: top center;
+}
+
+.balance-blocks.compact .blocks-container {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 0 2px;
+}
+
+.balance-blocks.compact .blockchain-item.balance-item {
+  padding: 4px 8px;
+}
+
+.balance-blocks.compact .block-header {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.balance-blocks.compact .block-title {
+  font-size: 10px;
+}
+
+.balance-blocks.compact .balance-value {
+  font-size: 12px;
+}
+
+.balance-blocks.mini .blocks-container {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 0 2px;
+}
+
+.balance-blocks.mini .blockchain-item.balance-item {
+  padding: 4px 8px;
+}
+
+.balance-blocks.mini .block-header {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.balance-blocks.mini .block-title {
+  font-size: 10px;
+}
+
+.balance-blocks.mini .balance-value {
+  font-size: 12px;
+}
+
+.blockchain-history.balance-blocks.compact {
+  transform: scale(0.8);
+  transform-origin: top center;
+  margin-bottom: -16px;
+  padding: 4px;
+}
+
+.blockchain-history.balance-blocks.compact .balance-section {
+  padding: 4px;
+}
+
+.blockchain-history.balance-blocks.compact .balance-item {
+  font-size: 11px;
+}
+
+.blockchain-history.balance-blocks.compact .balance-item span:last-child {
+  font-size: 13px;
+}
+
+.blockchain-item.balance-item {
+  background: rgba(255, 189, 46, 0.1);
+  border: 1px solid rgba(255, 189, 46, 0.2);
+  margin: 0;
+}
+
+.mining-stats {
+  background: rgba(0, 255, 0, 0.05);
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+}
+
+.mining-stats.compact {
+  transform: scale(0.8);
+  transform-origin: top center;
+  padding: 4px;
+  margin-bottom: -16px;
+}
+
+.mining-stats.compact .stats-row {
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.mining-stats.compact .stat {
+  padding: 3px;
+}
+
+.mining-stats.compact .stat .label {
+  font-size: 9px;
+}
+
+.mining-stats.compact .stat .value {
+  font-size: 11px;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.stats-row:last-child {
+  margin-top: 8px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: rgba(0, 255, 0, 0.08);
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 255, 0, 0.1);
+}
+
+.stat .label {
+  font-size: 12px;
+  color: var(--terminal-dim);
+  margin-bottom: 4px;
+}
+
+.stat .value {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.energy-container {
+  background: rgba(0, 255, 0, 0.08);
+  border-radius: 4px;
+  padding: 6px;
+  margin-bottom: 8px;
+  border: 1px solid rgba(0, 255, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.energy-container.compact {
+  padding: 1px;
+  margin-bottom: 4px;
+  background: transparent;
+  border: none;
+}
+
+.energy-container.compact .energy-status {
+  display: none;
+}
+
+.energy-container.compact .energy-bar-container {
+  height: 1px;
+  margin: 0;
+}
+
+.energy-container.compact .energy-bar {
+  height: 100%;
+}
+
+.energy-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.energy-bar-container {
+  height: 3px;
+  background: var(--terminal-dim);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.energy-bar {
+  height: 100%;
+  background: var(--terminal-text);
+  transition: width 0.3s ease;
+}
+
+.energy-bar.warning { 
+  background: var(--accent-color); 
+}
+
+.energy-bar.critical { 
+  background: var(--error-color); 
+}
+
+.mining-status {
+  font-family: "SF Mono", monospace;
+  white-space: pre;
+  margin: 8px 0;
+  font-size: 12px;
+}
+
+.mining-button {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--terminal-text);
+  color: var(--terminal-text);
+  padding: 8px;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.mining-button.stopping {
+  border-color: var(--error-color);
+  color: var(--error-color);
+}
+
+.terminal {
+  background: rgba(0, 0, 0, 0.95);
+  border: 1px solid var(--terminal-border);
+  border-radius: 4px;
+  margin-bottom: 8px;
+  padding: 8px;
+}
+
+.blockchain-history {
+  border: 1px solid var(--terminal-border);
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+.blocks-container {
+  padding: 4px;
+}
+
+.blockchain-item {
+  background: rgba(0, 255, 0, 0.02);
+  border: 1px solid var(--terminal-border);
+  margin: 4px;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.blockchain-item:hover {
+  background: rgba(0, 255, 0, 0.05);
+}
+
+.blockchain-item .block-hash {
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--terminal-dim);
+  background: rgba(0, 255, 0, 0.05);
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin: 4px 0;
+  word-break: break-all;
+}
+
+.blockchain-item .block-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--terminal-dim);
+  margin: 4px 0;
+}
+
+.block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.block-number {
+  color: var(--terminal-text);
+  font-weight: bold;
+}
+
+.block-winner {
+  color: var(--accent-color);
+}
+
+.personal-reward {
+  color: var(--terminal-dim);
+}
+
+.personal-reward.positive {
+  color: var(--accent-color);
+}
+
+.miner-reward-row {
+  background: rgba(255, 189, 46, 0.05);
+  border: 1px solid rgba(255, 189, 46, 0.1);
+  border-radius: 4px;
+  padding: 8px;
+  margin: 4px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.miner-reward-row.personal {
+  background: rgba(255, 189, 46, 0.1);
+  border-color: rgba(255, 189, 46, 0.2);
+}
+
+.miner-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.miner-name {
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+.miner-shares {
+  color: var(--terminal-dim);
+  font-size: 12px;
+}
+
+.miner-reward {
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+.miners-distribution {
+  margin-top: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.blockchain-section .blockchain-item {
+  background: rgba(0, 255, 0, 0.03);
+  padding: 8px;
+  font-size: 11px;
+}
+
+.blockchain-section .blocks-container {
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  max-height: none;
+  overflow-x: hidden;
+}
+
+.blockchain-section .blockchain-item {
+  position: relative;
+  margin: 0;
+  background: rgba(0, 255, 0, 0.03);
+  max-width: 320px;
+}
+
+.blockchain-section .blockchain-item::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -30px;
+  width: 30px;
+  height: 2px;
+  background: rgba(0, 255, 0, 0.1);
+}
+
+.blockchain-section .blockchain-item::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 2px;
+  height: 12px;
+  background: rgba(0, 255, 0, 0.1);
+}
+
+.blockchain-section .blockchain-item:last-child::after {
+  display: none;
+}
+
+.blockchain-section .blockchain-item:nth-child(even) {
+  margin-left: auto;
+}
+
+.blockchain-section .blockchain-item:nth-child(even)::before {
+  left: auto;
+  right: -30px;
+}
+
+.blockchain-section .blockchain-item.active {
+  border-color: var(--accent-color);
+  background: rgba(255, 189, 46, 0.05);
+}
+
+.blockchain-section .block-connect-line {
+  position: absolute;
+  background: rgba(0, 255, 0, 0.1);
+}
+
+.blockchain-section .block-header {
+  margin-bottom: 2px;
+}
+
+.blockchain-section .block-hash {
+  padding: 4px;
+  font-size: 10px;
+  margin: 2px 0;
+}
+
+.blockchain-section .block-stats {
+  margin-top: 2px;
+  padding-top: 2px;
+}
+
+@keyframes blockGlow {
+  0% { box-shadow: 0 0 10px rgba(0, 255, 0, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(0, 255, 0, 0.4); }
+  100% { box-shadow: 0 0 10px rgba(0, 255, 0, 0.2); }
+}
+
+.blockchain-section .blockchain-item.new-block {
+  animation: blockGlow 2s infinite;
+}
+
+.top-miners-section {
+  padding-bottom: 80px;
+}
+
+#topMinersList {
+  padding: 8px;
+}
+
+.top-miner-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 255, 0, 0.02);
+  border: 1px solid var(--terminal-border);
+  margin: 4px 0;
+  padding: 6px 8px;
+  border-radius: 4px;
+}
+
+.top-miner-item.personal {
+  background: rgba(255, 189, 46, 0.05);
+  border-color: rgba(255, 189, 46, 0.2);
+}
+
+.miner-rank {
+  font-size: 12px;
+  min-width: 32px;
+}
+
+.miner-info {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.miner-name {
+  font-size: 12px;
+}
+
+.miner-balance {
+  color: var(--accent-color);
+  font-size: 12px;
+}
+
+.user-position {
+  margin-top: 16px;
+}
+
+.position-divider {
+  height: 1px;
+  background: var(--terminal-border);
+  margin: 8px 0;
+}
+
+.top-miners-section .compact-stats {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.95);
+  margin: 4px;
+  border-radius: 0;
+  backdrop-filter: blur(10px);
+  padding: 4px;
+  transform: scale(0.85);
+  transform-origin: top center;
+}
+
+.blockchain-section .compact-stats,
+.wallet-section .compact-stats {
+  padding: 4px;
+  margin: 4px;
+  transform: scale(0.85);
+  transform-origin: top center;
+}
+
+.mission-card {
+  background: rgba(0, 255, 0, 0.05);
+  border: 1px solid rgba(0, 255, 0, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  margin: 6px 0;
+}
+
+.mission-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.mission-title {
+  color: var(--terminal-text);
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.mission-reward {
+  color: var(--accent-color);
+  font-size: 12px;
+}
+
+.mission-description {
+  color: var(--terminal-dim);
+  font-size: 11px;
+  margin-bottom: 8px;
+}
+
+.mission-button {
+  background: rgba(0, 255, 0, 0.1);
+  border: 1px solid var(--terminal-text);
+  color: var(--terminal-text);
+  padding: 8px 16px;
+  border-radius: 4px;
+  width: 100%;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mission-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.mission-button.completed {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  background: rgba(255, 189, 46, 0.1);
+}
+
+.mission-timer {
+  text-align: center;
+  color: var(--terminal-dim);
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+}
+
+.modal-overlay.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background: #000000;
+  border: 1px solid rgba(255, 189, 46, 0.2);
+  padding: 12px;
+  width: 90%;
+  max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 8px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 189, 46, 0.2);
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+}
+
+.modal-header h3 {
+  color: var(--accent-color);
+  margin: 0;
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  color: var(--terminal-text);
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.modal-content {
+  padding: 6px;
+  font-size: 11px;
+}
+
+.compact-stats {
+  background: rgba(0, 255, 0, 0.05);
+  border: 1px solid rgba(0, 255, 0, 0.1);
+  border-radius: 4px;
+  padding: 4px;
+  margin: 4px;
+  font-size: 12px;
+  transform: scale(0.85);
+  transform-origin: top center;
+}
+
+.compact-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1px 4px;
+  border-bottom: 1px solid rgba(0, 255, 0, 0.1);
+}
+
+.compact-row:last-child {
+  border-bottom: none;
+}
+
+.compact-row span:first-child {
+  font-size: 11px;
+}
+
+.compact-row span:last-child {
+  font-size: 12px;
+}
+
+.compact-stats .compact-row:nth-child(even) {
+  background: rgba(0, 255, 0, 0.02);
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+#hashNotificationContainer {
+  width: 90%;
+  max-width: 300px;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.98);
+  border-top: 1px solid var(--terminal-border);
+  display: flex;
+  justify-content: space-around;
+  padding: 4px 0;
+  padding-bottom: env(safe-area-inset-bottom);
+  backdrop-filter: blur(10px);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px;
+  color: var(--terminal-dim);
+  font-size: 11px;
+  transition: color 0.2s ease;
+}
+
+.nav-item.active {
+  color: var(--terminal-text);
+}
+
+.top-miners-section,
+.blockchain-section,
+.wallet-section {
+  padding: 8px;
+}
+
+.missions-section {
+  padding: 8px;
+}
+
+.block-detail-section {
+  margin: 12px 0;
+}
+
+.block-detail-section h4 {
+  font-size: 12px;
+  margin: 0 0 6px 0;
+  color: var(--terminal-dim);
+}
+
+.block-detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(0, 255, 0, 0.1);
+}
+
+.block-detail-row:last-child {
+  border-bottom: none;
+}
+
+.block-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--terminal-dim);
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(0, 255, 0, 0.1);
+}
+
+.block-hash {
+  font-family: monospace;
+  color: var(--terminal-text);
+  font-size: 12px;
+  word-break: break-all;
+  background: rgba(0, 255, 0, 0.05);
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 255, 0, 0.1);
+}
+
+.top-miners-section h3,
+.blockchain-section h3,
+.wallet-section h3 {
+  font-size: 14px;
+  margin: 8px 0;
+  padding: 4px 8px;
+  color: var(--terminal-dim);
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 255, 0, 0.02);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 0, 0.1);
+  border-radius: 2px;
+}
+
+.upgrades-section {
+  padding: 8px;
+}
+
+.upgrade-card {
+  background: rgba(0, 255, 0, 0.05);
+  border: 1px solid rgba(0, 255, 0, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  margin: 8px 0;
+}
+
+.upgrade-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.upgrade-title {
+  font-size: 14px;
+  color: var(--terminal-text);
+}
+
+.upgrade-level {
+  font-size: 12px;
+  color: var(--accent-color);
+}
+
+.upgrade-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--terminal-dim);
+  margin-bottom: 8px;
+}
+
+.upgrade-button {
+  width: 100%;
+  background: rgba(255, 189, 46, 0.1);
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
+  padding: 8px;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.upgrade-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: var(--terminal-dim);
+  color: var(--terminal-dim);
+}
